@@ -106,19 +106,6 @@ var ansSchema = new Schema({
 var Answer = mongoose.model('Answer', ansSchema);
 
 
-/*
-var signup = new Signedup({
-
-    username: '',
-    password: '',
-    confirmpw: '',
-    email: '',
-    status: 'pending'
-  
-  }, { _id: true });
-  */
-
-
 module.exports = function(app){
 
     app.use(express.json())
@@ -178,12 +165,6 @@ module.exports = function(app){
         }
     });
 
-    // app.post('/addQuestion', (req, res)=>{
-    //     var ques = Question(req.body).save((err, data)=>{
-    //         if(err) throw err;
-    //         res.redirect('/');
-    //     });
-    // });
 
 // fetch added questions from db to view page    
     
@@ -268,18 +249,15 @@ app.post('/signedUp', (req, res)=>{
 
 
         const sgMail = require('@sendgrid/mail');
-        sgMail.setApiKey('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');
+        sgMail.setApiKey('<PUT YOUR SENDGRID API KEY HERE>');
         const msg = {
         to: req.body.email,
-        from: 'subhranilsamanta450@gmail.com',
+        from: '<PUT YOUR EMAIL LINKED TO SENDGRID>',
         subject: 'Sending with Twilio SendGrid is Fun',
         text: r,
-        // text: 'and easy to do anywhere, even with Node.js',
-        // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
         };
         sgMail.send(msg);
 
-        // res.redirect('/userView/' + data._id);
         res.redirect('/confirmIdentity/'+ data._id);
     });
 });
@@ -310,22 +288,14 @@ app.post('/submitIdentity/:id', (req, res)=>{
         }
         else{
             res.redirect('/signUp');
-            // const data1 = Question.findByIdAndDelete( req.params.id , req.body);
-            // console.log(data1);
-            // res.send(data1);
         }
-        // console.log("find data = " + data);
-        // res.send(data);
     });
 });
 
 // login form
 app.post('/loggedIn', (req, res)=>{
-    // var logIn = (req.body).save((err, data)=>{
-    //     if(err) throw err;
     Signedup.find({}, (err, data)=>{
         if(err) throw err;
-        // res.render('login', {data});
         console.log(data.length)
         for(var i=0;i < data.length;i++){
         console.log(data[i].email)
@@ -342,13 +312,7 @@ app.post('/loggedIn', (req, res)=>{
             res.send('User Not Found!!! Email or Password is Invalid');
     }
     });
-    //var signUp = Signedup.findOne( );
-    //console.log(signUp.email)
-    // if(signUp.email == req.body.email){
-    //     res.redirect('/loggedUser/' + data._id);
-    // }
     });
-//});
 
 // signedUp User
 app.get('/userView/:id', function(req, res){
@@ -362,17 +326,11 @@ app.get('/userView/:id', function(req, res){
 });
 
 app.post('/userSubmit/:id/:id1/:cans', (req, res)=>{
-    // console.log(req.params.cans)
     var flag=0;
     Answer.find()
     .then((ques)=>{  
-        // console.log(ques)
         if( ques.length != 0 ){
-            // console.log('no')
             for( i=0;i<ques.length;i++ ){
-            
-            // console.log(ques[i].uid)
-            // console.log(req.params.id)
 
             if( ques[i].qid.toString() == req.params.id1 && ques[i].uid.toString() == req.params.id ){
                 Answer.findByIdAndUpdate(ques[i]._id, req.body, {new: true})
@@ -386,16 +344,13 @@ app.post('/userSubmit/:id/:id1/:cans', (req, res)=>{
                 break;
             }
             else if(ques[i].qid.toString() == req.params.id1 || ques[i].uid.toString() == req.params.id ){
-                // console.log('nono')
                 flag=0;
             }
             else{
-                // console.log('yes')
                 flag=0;
             }
         }
         if(flag==0){
-            // console.log('yesyes')
                 const newans = new Answer({
                     uid: req.params.id,
                     qid: req.params.id1,
@@ -460,44 +415,5 @@ app.get('/viewAnswer/:id', (req, res)=>{
     });
 });
 
-/*
-app.post('/score/:id', (req, res)=>{
-    Signedup.findById(req.params.id, (err, data)=>{
-        if(err) throw err;
-
-        Question.find({}, (err, data1)=>{
-            if(err) throw err;
-            console.log(data1);
-
-            for(let i=0; i < data1.length; i++) {        
-            const newans = new Answer({
-                oldid: data1[i]._id,
-                ans: req.body.ans
-            })
-        
-            newans.save()
-            .then (()=>{
-                res.send({success: true})
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-        }
-        })
-    })
-})
-
-app.get('/viewScore/:id', (req, res)=>{
-    Signedup.findById(req.params.id, (err, data1)=>{
-        if(err) throw err;
-        Question.find({}, (err, data)=>{
-            // console.log(data)
-            if(err) throw err;
-        res.render('score', {data1, data});
-        
-    });
-}); 
-});
-*/
 }
 
