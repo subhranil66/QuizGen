@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <script src="jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+        <center>
+            <h1 style="color: red;">Questions' Bank</h1>
+            </center>
+            <a href="/signUp">
+                <button id="signUp" class="btn btn-warning" style="float:right;margin-right: 10px;">Sign Up</button>
+            </a>
+            <a href="/logIn">
+                <button id="logIn" class="btn btn-success" style="float:right;margin-right: 10px;">Log In</button>
+            </a><br>
+
+            <div id="questionPanel" style="margin-left: 200px; margin-right: 200px;">
+                <% for(var i=0; i < data.length; i++) { %>
+                    <div>
+                <p><b>Q<%= i+1 %>: <%= data[i].question %></b></p>
+                <input type="radio" name="Q<%= i+1 %>"> <%= data[i].opt1 %></input><br>
+                <input type="radio" name="Q<%= i+1 %>"> <%= data[i].opt2 %></input><br>
+                <input type="radio" name="Q<%= i+1 %>"> <%= data[i].opt3 %></input><br>
+                <input type="radio" name="Q<%= i+1 %>"> <%= data[i].opt4 %></input><br>
+                <hr>
+                    </div>
+                <% } %>
+               
+    </div>
+    <script src="http://127.0.0.1:5000/home.js"></script>       
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <script src="jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+        <center>
+            <h1 style="color: red;">Answers' Bank</h1>
+            </center>
+            <a href="/logIn">
+                <button id="logOut" class="btn btn-danger" style="float:right;margin-right: 10px;">Log Out</button>
+            </a>
+
+            <div id="answerPanel" style="margin-left: 200px; margin-right: 200px;">
+                <% for(var i=0; i < data.length; i++){ %>
+                    <div>
+                <p>Q<%= i+1 %>: <i style="color: green;"><%= data[i].question %></i></p>
+                <p>1. <%= data[i].opt1 %></p>
+                <p>2. <%= data[i].opt2 %></p>
+                <p>3. <%= data[i].opt3 %></p>
+                <p>4. <%= data[i].opt4 %></p>
+                <p><b>Ans: </b><i style="color: blue;"><%= data[i].ans %></i></p>
+                <hr>
+            </div>
+        <% } %>
+    </div>
+    <script src="http://127.0.0.1:5000/answer.js"></script>       
+</body>
+</html>

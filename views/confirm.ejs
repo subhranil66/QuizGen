@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+        <form class="form-inline" action="/submitIdentity/<%= data._id %>" method="POST">
+                <div class="form-group mb-2">
+                  <label for="staticEmail" class="sr-only">Email</label>
+                  <p type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= data.email %>"></p>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="inputCode" class="sr-only">Code</label>
+                  <input type="text" class="form-control" id="code" name="code" placeholder="Enter Code">
+                </div>
+                
+                <button type="submit" class="btn btn-primary mb-2">Confirm Identity</button>
+        </form>
+        <script src="http://127.0.0.1:5000/confirm.js"></script>
+</body>
+</html>

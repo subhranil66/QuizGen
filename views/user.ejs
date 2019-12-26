@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <script src="jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+        <center>
+            <h1 style="color: red;">Questions' Bank</h1>
+            </center>
+        <% if( data1.status == "active") { %>
+                <p style="float: right;">Welcome<font style="color: red;font-weight: bold;margin-right: 10px;font-size: 20px;"> <%= data1.username %></font></p><br><br>
+                <a href="/logIn">
+                    <button id="logOut" class="btn btn-danger" style="float:right;margin-right: 10px;">Log Out</button>
+                </a>
+         <% } %>
+        <% if( data1.status != "active") { %>
+            <a href="/signUp">
+                <button id="signUp" class="btn btn-warning" style="float:right;margin-right: 10px;">Sign Up</button>
+            </a>
+            <a href="/logIn">
+                <button id="logIn" class="btn btn-success" style="float:right;margin-right: 10px;">Log In</button>
+            </a><br>
+        <% } %>
+            <div id="questionPanel" style="margin-left: 200px; margin-right: 200px;">
+                <% for(var i=0; i < data.length; i++) { %>
+                    <div>
+
+                <p><b>Q<%= i+1 %>: <%= data[i].question %></b></p>
+                <input type="radio" name="<%= data[i]._id %>" value="Option 1" id="i1"> <%= data[i].opt1 %></input><br>
+                <input type="radio" name="<%= data[i]._id %>" value="Option 2" id="i2"> <%= data[i].opt2 %></input><br>
+                <input type="radio" name="<%= data[i]._id %>" value="Option 3" id="i3"> <%= data[i].opt3 %></input><br>
+                <input type="radio" name="<%= data[i]._id %>" value="Option 4" id="i4"> <%= data[i].opt4 %></input><br><br>
+                <button onclick="submitAnswer('<%= data1._id %>', '<%= data[i]._id %>', '<%= data[i].ans %>', event)" class="btn btn-primary submitAnswer" style="margin-left: 0px;">Submit</button>
+                <hr>
+                    </div>
+                <% } %>
+                <a href="/userScore/<%= data1._id %>">
+                    <center><button id="score" class="btn btn-warning userScore">I'm Done</button></center>
+                </a><br><br>
+    </div>
+    <!-- <script src="http://127.0.0.1:5000/user.js" type="text/javascript"></script>      -->
+    
+    <script>
+        
+        function submitAnswer(uid, qid, cans, event){
+            event.preventDefault()
+            // console.log(ans)
+            // $(document).ready(function(){
+            //     // alert($("input[name=" + qid + "]:checked").val())
+            //     var x = $("input[name=" + qid + "]:checked").val();
+            //     // alert(x);
+            // })
+            
+        $(document).ready(function(){
+            var x = $("input[name=" + qid + "]:checked").val();
+            console.log(x)
+            console.log(cans)
+        $.ajax({
+            method: 'POST',
+            url: '/userSubmit/' + uid + '/' + qid + '/' + cans,
+            data:{
+                uans: x 
+            },
+            success: function(res){
+                if(res.success == true){
+                    alert('submitted');
+                }
+            }
+        })
+    })
+
+        }
+    </script>
+    
+</body>
+</html>
